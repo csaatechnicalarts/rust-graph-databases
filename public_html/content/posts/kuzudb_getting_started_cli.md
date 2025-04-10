@@ -63,7 +63,7 @@ the second record in the User table, the entry for the node ```{name:Keinichi,ag
 
 These tuples are used in the same way for relationships.
 ```(1:0)-[label:FriendshipCity, {since:1997-08-01}]->(1:1)``` matches a ```FriendshipCity```
-relationship between Dallas and Sendai, nodes ```1:0``` and ```0:1``` respectively.
+relationship between Dallas and Sendai, nodes ```1:0``` and ```1:1``` respectively.
 
 ## REFERENCE VARIABLES and LABELS
 
