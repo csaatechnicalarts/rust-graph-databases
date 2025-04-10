@@ -23,21 +23,21 @@
         <id>https://csaatechnicalarts.github.io/rust-graph-databases/posts/kuzudb-getting-started-cli/</id>
         
         <content type="html" xml:base="https://csaatechnicalarts.github.io/rust-graph-databases/posts/kuzudb-getting-started-cli/">&lt;h2 id=&quot;create&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#create&quot; aria-label=&quot;Anchor link for: create&quot;&gt;CREATE&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
-&lt;p&gt;The &lt;code&gt;CREATE&lt;&#x2F;code&gt; clause is used to tables that store nodes and relationships in a graph database.
-It does not check for existing data in the datastore; instead, it blindly folows the command
-to create a new pattern in the graph network.&lt;&#x2F;p&gt;
+&lt;p&gt;As we go about specifying the graph database schema, we use the Cypher &lt;code&gt;CREATE&lt;&#x2F;code&gt; clause to provision tables that store graph nodes and
+the relationships between them. Here&#x27;s an example where we create the &lt;code&gt;User&lt;&#x2F;code&gt; and &lt;code&gt;City&lt;&#x2F;code&gt; node tables. Immedately afterwards we create
+the &lt;code&gt;Follows&lt;&#x2F;code&gt; &lt;code&gt;LivesIn&lt;&#x2F;code&gt; and &lt;code&gt;FriendshipCity&lt;&#x2F;code&gt; tables to store relationships between users and cities.&lt;&#x2F;p&gt;
 &lt;pre data-lang=&quot;cypher&quot; style=&quot;background-color:#383838;color:#e6e1dc;&quot; class=&quot;language-cypher &quot;&gt;&lt;code class=&quot;language-cypher&quot; data-lang=&quot;cypher&quot;&gt;&lt;span&gt;CREATE NODE TABLE User (name STRING, age INT64, PRIMARY KEY(name));
 &lt;&#x2F;span&gt;&lt;span&gt;CREATE NODE TABLE City (name STRING, population INT64, PRIMARY KEY(name));
 &lt;&#x2F;span&gt;&lt;span&gt;CREATE REL TABLE Follows (FROM User TO User, since DATE);
+&lt;&#x2F;span&gt;&lt;span&gt;CREATE REL TABLE LivesIn (FROM User TO City, since DATE);
+&lt;&#x2F;span&gt;&lt;span&gt;CREATE REL TABLE FriendshipCity (FROM City TO City, since DATE);
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
-&lt;p&gt;In the example below, we also use &lt;code&gt;CREATE&lt;&#x2F;code&gt; to insert graph nodes into our tables.
-Within a node, we use curly brackets to enclose node properties.&lt;&#x2F;p&gt;
+&lt;p&gt;In the next section we&#x27;ll see how  to use &lt;code&gt;CREATE&lt;&#x2F;code&gt; to insert nodes and relationships into the tables we&#x27;ve provisioned.&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;return&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#return&quot; aria-label=&quot;Anchor link for: return&quot;&gt;RETURN&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
-&lt;p&gt;The &lt;code&gt;RETURN&lt;&#x2F;code&gt; clause retrieves graph elements from the database. There can only be
-one &lt;code&gt;RETURN&lt;&#x2F;code&gt; clause in a Cypher query, except for statements involving &lt;code&gt;UNION&lt;&#x2F;code&gt;
-and subqueries.&lt;&#x2F;p&gt;
-&lt;p&gt;In the following example, the query inserts nodes and the relationships to the &lt;code&gt;User&lt;&#x2F;code&gt;,
-&lt;code&gt;City&lt;&#x2F;code&gt;, &lt;code&gt;FriendshipCity&lt;&#x2F;code&gt; and &lt;code&gt;LivesIn&lt;&#x2F;code&gt; tables and returns all the data.&lt;&#x2F;p&gt;
+&lt;p&gt;The &lt;code&gt;RETURN&lt;&#x2F;code&gt; clause retrieves data from the graph database. There can only be one &lt;code&gt;RETURN&lt;&#x2F;code&gt; clause in a Cypher query, except for
+statements involving &lt;code&gt;UNION&lt;&#x2F;code&gt; and subqueries. We rely on curly brackets to denote node and relationship properties.&lt;&#x2F;p&gt;
+&lt;p&gt;In the following example, our queries insert data into the &lt;code&gt;User&lt;&#x2F;code&gt;,
+&lt;code&gt;City&lt;&#x2F;code&gt;, &lt;code&gt;FriendshipCity&lt;&#x2F;code&gt; and &lt;code&gt;LivesIn&lt;&#x2F;code&gt; tables. At the end of the statement, we use the &lt;code&gt;RETURN&lt;&#x2F;code&gt; to inspect everything we&#x27;ve loaded into the graph database.&lt;&#x2F;p&gt;
 &lt;pre data-linenos data-lang=&quot;cypher&quot; style=&quot;background-color:#383838;color:#e6e1dc;&quot; class=&quot;language-cypher &quot;&gt;&lt;code class=&quot;language-cypher&quot; data-lang=&quot;cypher&quot;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;CREATE (u1: User {name: &amp;#39;Carly&amp;#39;, age: 31}), (u2: User {name: &amp;#39;Keinichi&amp;#39;, age: 47})
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;2&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;CREATE (u1)-[f: Follows {since: DATE(&amp;#39;2025-03-25&amp;#39;)}]-&amp;gt;(u2)
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;3&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;CREATE (c1: City {name: &amp;#39;Dallas&amp;#39;, population: 1302638})
@@ -47,8 +47,7 @@ and subqueries.&lt;&#x2F;p&gt;
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;7&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;CREATE (u2)-[l02: LivesIn]-&amp;gt;(c2)
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;8&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;RETURN *;    
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
-&lt;p&gt;Looking at the command line output for the statement above, Kuzu presents the data tagged with tuples
-that mark node table IDs and rows.&lt;&#x2F;p&gt;
+&lt;p&gt;The section below shows  query output as it appears on the command line.&lt;&#x2F;p&gt;
 &lt;pre data-linenos data-lang=&quot;KuzuDB&quot; style=&quot;background-color:#383838;color:#e6e1dc;&quot; class=&quot;language-KuzuDB &quot;&gt;&lt;code class=&quot;language-KuzuDB&quot; data-lang=&quot;KuzuDB&quot;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;(label:User, 0:0, {name:Carly,age:31})
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;2&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;(label:User, 0:1, {name:Keinichi,age:47})
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;3&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;(0:0)-[label:Follows, {since:2025-03-25}]-&amp;gt;(0:1)
@@ -58,17 +57,17 @@ that mark node table IDs and rows.&lt;&#x2F;p&gt;
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;7&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;(0:0)-[label:LivesIn, {since:}]-&amp;gt;(1:0)
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;8&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;(0:1)-[label:LivesIn, {since:}]-&amp;gt;(1:1)
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
-&lt;p&gt;For example with the &lt;code&gt;User&lt;&#x2F;code&gt; table tagged as &lt;code&gt;0&lt;&#x2F;code&gt;, and the first and second
+&lt;p&gt;Note how Kuzu uses tuples to tag node, with tuple values representing table IDs and rows.
+For example with the &lt;code&gt;User&lt;&#x2F;code&gt; table tagged as &lt;code&gt;0&lt;&#x2F;code&gt;, and the first and second
 rows tagged as &lt;code&gt;0&lt;&#x2F;code&gt; and &lt;code&gt;1&lt;&#x2F;code&gt; respectively, the tuple &lt;code&gt;0:1&lt;&#x2F;code&gt; maps to
 the second record in the User table, the entry for the node &lt;code&gt;{name:Keinichi,age:47}&lt;&#x2F;code&gt;
 (line 2).&lt;&#x2F;p&gt;
-&lt;p&gt;These tuples are used in the same way for relationships.
+&lt;p&gt;These tuples are used in the same way for relationship data.
 &lt;code&gt;(1:0)-[label:FriendshipCity, {since:1997-08-01}]-&amp;gt;(1:1)&lt;&#x2F;code&gt; matches a &lt;code&gt;FriendshipCity&lt;&#x2F;code&gt;
 relationship between Dallas and Sendai, nodes &lt;code&gt;1:0&lt;&#x2F;code&gt; and &lt;code&gt;1:1&lt;&#x2F;code&gt; respectively.&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;reference-variables-and-labels&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#reference-variables-and-labels&quot; aria-label=&quot;Anchor link for: reference-variables-and-labels&quot;&gt;REFERENCE VARIABLES and LABELS&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
-&lt;p&gt;In Cypher queries, reference variables are placeholders for data that we declare before
-node types. For example, &lt;code&gt;u1&lt;&#x2F;code&gt; and &lt;code&gt;c2&lt;&#x2F;code&gt; in &lt;code&gt;u1: User&lt;&#x2F;code&gt; and &lt;code&gt;c2: City&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
-&lt;p&gt;Because a &lt;code&gt;CREATE&lt;&#x2F;code&gt; statement doesn&#x27;t perform any database lookup before inserting
+&lt;p&gt;You may have noticed that we use reference variables are placeholders for Cypher nodes. For example, &lt;code&gt;u1&lt;&#x2F;code&gt; and &lt;code&gt;c2&lt;&#x2F;code&gt; in &lt;code&gt;u1: User&lt;&#x2F;code&gt; and &lt;code&gt;c2: City&lt;&#x2F;code&gt;. While we&#x27;ve used reference variable superficially in our examples here, you&#x27;ll see more when we write our queries with the &lt;code&gt;MATCH&lt;&#x2F;code&gt; clause.&lt;&#x2F;p&gt;
+&lt;p&gt;Note that because a &lt;code&gt;CREATE&lt;&#x2F;code&gt; statement doesn&#x27;t perform any database lookup before inserting
 new data, reference variables are only visible within the same Cypher query. In short,
 reference variables are not visible between queries.&lt;&#x2F;p&gt;
 </content>
