@@ -40,7 +40,7 @@ menu = [
 ]
 
 socials = [
-    { name = "github", url = "https://github.com/false-link/", icon = "github" },
+    { name = "github", url = "https://github.com/csaatechnicalarts/rust-graph-databases", icon = "github" },
 ]
 
 stylesheets = [
