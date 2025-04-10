@@ -29,7 +29,8 @@ The ```RETURN``` clause retrieves graph elements from the database. There can on
 one ```RETURN``` clause in a Cypher query, except for statements involving ```UNION```
 and subqueries.
 
-In the following example, the query returns all the nodes and the relationships we've added to the graph tables.
+In the following example, the query inserts nodes and the relationships to the ```User```, 
+```City```, ```FriendshipCity``` and ```LivesIn``` tables and returns all the data.
 
 ```cypher, linenos
 CREATE (u1: User {name: 'Carly', age: 31}), (u2: User {name: 'Keinichi', age: 47})
@@ -42,8 +43,8 @@ CREATE (u2)-[l02: LivesIn]->(c2)
 RETURN *;    
 ```
 
-Looking at the command line output for the statement above, Kuzu returns the data tagged with tuples indicating 
-node table IDs and rows.
+Looking at the command line output for the statement above, Kuzu presents the data tagged with tuples 
+that mark node table IDs and rows.
 
 ```KuzuDB, linenos
 (label:User, 0:0, {name:Carly,age:31})
