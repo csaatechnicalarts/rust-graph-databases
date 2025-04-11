@@ -48,6 +48,7 @@ into the &lt;code&gt;User&lt;&#x2F;code&gt;, &lt;code&gt;City&lt;&#x2F;code&gt;,
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;7&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;CREATE (u2)-[l02: LivesIn]-&amp;gt;(c2)
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;8&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;RETURN *;    
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;csaatechnicalarts.github.io&#x2F;rust-graph-databases&#x2F;posts&#x2F;kuzudb-getting-started-cli&#x2F;images&#x2F;homepage_hero_image-1600px.jpg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;At the end of the statement, we use the &lt;code&gt;RETURN&lt;&#x2F;code&gt; to inspect everything we&#x27;ve loaded into the graph database.
 The section below shows the Kuzu output as it appears on the command line.&lt;&#x2F;p&gt;
 &lt;pre data-linenos data-lang=&quot;KuzuDB&quot; style=&quot;background-color:#383838;color:#e6e1dc;&quot; class=&quot;language-KuzuDB &quot;&gt;&lt;code class=&quot;language-KuzuDB&quot; data-lang=&quot;KuzuDB&quot;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;(label:User, 0:0, {name:Carly,age:31})

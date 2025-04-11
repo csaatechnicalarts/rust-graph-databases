@@ -45,7 +45,12 @@ CREATE (u1)-[l01: LivesIn]->(c1)
 CREATE (u2)-[l02: LivesIn]->(c2)
 RETURN *;    
 ```
-At the end of the statement, we use the ```RETURN``` to inspect everything we've loaded into the graph database.
+
+The [Kuzu Explorer](https://github.com/kuzudb/explorer) maps our graph network, showing the two node types and their connecting relationships. 
+
+![](2025_0326-kuzugraph_city_user-800px.jpg)
+
+At the end of the statement, we have the ```RETURN``` clause present everything we've loaded into the graph database.
 The section below shows the Kuzu output as it appears on the command line. 
 
 ```KuzuDB, linenos
@@ -79,7 +84,7 @@ CREATE (u1: User {name: 'Carly', age: 31}), (u2: User {name: 'Keinichi', age: 47
 CREATE (c1: City {name: 'Dallas', population: 1302638})
 ```
 
-While we've used reference variables superficially thus far, you'll see more of them once we write Cypher statements 
+That's all for Cypher reference variables. While we've used these node labels superficially thus far, you'll see more of them once we write Cypher statements 
 that use the ```MATCH``` clause.
 
 One final note before we close. A ```CREATE``` statement doesn't perform any database lookup prior to inserting any 
