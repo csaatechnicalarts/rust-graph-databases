@@ -19,10 +19,10 @@
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://csaatechnicalarts.github.io/rust-graph-databases/posts/kuzudb-getting-started-cli/"/>
-        <id>https://csaatechnicalarts.github.io/rust-graph-databases/posts/kuzudb-getting-started-cli/</id>
+        <link rel="alternate" type="text/html" href="https://csaatechnicalarts.github.io/rust-graph-databases/posts/cypher-create-return/"/>
+        <id>https://csaatechnicalarts.github.io/rust-graph-databases/posts/cypher-create-return/</id>
         
-        <content type="html" xml:base="https://csaatechnicalarts.github.io/rust-graph-databases/posts/kuzudb-getting-started-cli/">&lt;h2 id=&quot;create&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#create&quot; aria-label=&quot;Anchor link for: create&quot;&gt;CREATE&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+        <content type="html" xml:base="https://csaatechnicalarts.github.io/rust-graph-databases/posts/cypher-create-return/">&lt;h2 id=&quot;create&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#create&quot; aria-label=&quot;Anchor link for: create&quot;&gt;CREATE&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
 &lt;p&gt;Starting with an empty graph database, our first task is to lay down the database schehma. As we go about this, the Cypher &lt;code&gt;CREATE&lt;&#x2F;code&gt;
 clause comes in handy for provisioning database tables that store &lt;em&gt;graph nodes&lt;&#x2F;em&gt; and the &lt;em&gt;relationships&lt;&#x2F;em&gt; between them.&lt;&#x2F;p&gt;
 &lt;p&gt;Here&#x27;s a simple schema made up of two node tables: &lt;code&gt;User&lt;&#x2F;code&gt; and &lt;code&gt;City&lt;&#x2F;code&gt;. Immedately after we specify them, we create
@@ -48,8 +48,9 @@ into the &lt;code&gt;User&lt;&#x2F;code&gt;, &lt;code&gt;City&lt;&#x2F;code&gt;,
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;7&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;CREATE (u2)-[l02: LivesIn]-&amp;gt;(c2)
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;8&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;RETURN *;    
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
-&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;csaatechnicalarts.github.io&#x2F;rust-graph-databases&#x2F;posts&#x2F;kuzudb-getting-started-cli&#x2F;images&#x2F;homepage_hero_image-1600px.jpg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
-&lt;p&gt;At the end of the statement, we use the &lt;code&gt;RETURN&lt;&#x2F;code&gt; to inspect everything we&#x27;ve loaded into the graph database.
+&lt;p&gt;The &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;kuzudb&#x2F;explorer&quot;&gt;Kuzu Explorer&lt;&#x2F;a&gt; maps our graph network, showing the two node types and their connecting relationships.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;csaatechnicalarts.github.io&#x2F;rust-graph-databases&#x2F;posts&#x2F;cypher-create-return&#x2F;2025_0326-kuzugraph_city_user-800px.jpg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;At the end of the statement, we have the &lt;code&gt;RETURN&lt;&#x2F;code&gt; clause present everything we&#x27;ve loaded into the graph database.
 The section below shows the Kuzu output as it appears on the command line.&lt;&#x2F;p&gt;
 &lt;pre data-linenos data-lang=&quot;KuzuDB&quot; style=&quot;background-color:#383838;color:#e6e1dc;&quot; class=&quot;language-KuzuDB &quot;&gt;&lt;code class=&quot;language-KuzuDB&quot; data-lang=&quot;KuzuDB&quot;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;(label:User, 0:0, {name:Carly,age:31})
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;2&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;(label:User, 0:1, {name:Keinichi,age:47})
@@ -75,7 +76,7 @@ refer to first and second graph nodes stored in the &lt;code&gt;City&lt;&#x2F;co
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;2&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;...
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;3&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;CREATE (c1: City {name: &amp;#39;Dallas&amp;#39;, population: 1302638})
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
-&lt;p&gt;While we&#x27;ve used reference variables superficially thus far, you&#x27;ll see more of them once we write Cypher statements
+&lt;p&gt;That&#x27;s all for Cypher reference variables. While we&#x27;ve used these node labels superficially thus far, you&#x27;ll see more of them once we write Cypher statements
 that use the &lt;code&gt;MATCH&lt;&#x2F;code&gt; clause.&lt;&#x2F;p&gt;
 &lt;p&gt;One final note before we close. A &lt;code&gt;CREATE&lt;&#x2F;code&gt; statement doesn&#x27;t perform any database lookup prior to inserting any
 new data. Effectively, reference variables are only visible within the same Cypher statements, not across them.&lt;&#x2F;p&gt;
