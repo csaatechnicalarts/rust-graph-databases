@@ -12,9 +12,11 @@ comment = false
 
 ## CREATE
 
-As we go about specifying the graph database schema, we use the Cypher ```CREATE``` clause to provision tables that store graph nodes and 
-the relationships between them. Here's an example where we create the ```User``` and ```City``` node tables. Immedately afterwards we create 
-the ```Follows``` ```LivesIn``` and ```FriendshipCity``` tables to store relationships between users and cities.
+Starting with an empty graph database, our first task is to lay down the database schehma. As we go about this, the Cypher ```CREATE``` 
+clause comes in handy for provisioning database tables that store *graph nodes* and the *relationships* between them. 
+
+Here's a simple schema made up of two node tables: ```User``` and ```City```. Immedately after we specify them, we create 
+the ```Follows``` ```LivesIn``` and ```FriendshipCity``` tables to store the various relationships between users and cities.
 
 ```cypher
 CREATE NODE TABLE User (name STRING, age INT64, PRIMARY KEY(name));
@@ -24,14 +26,14 @@ CREATE REL TABLE LivesIn (FROM User TO City, since DATE);
 CREATE REL TABLE FriendshipCity (FROM City TO City, since DATE);
 ```
 In the next section we'll see how  to use ```CREATE``` to insert nodes and relationships into the tables we've provisioned.  
+
 ## RETURN
 
-The ```RETURN``` clause retrieves data from the graph database. There can only be one ```RETURN``` clause in a Cypher query, except for 
-statements involving ```UNION``` and subqueries. We rely on curly brackets to denote node and relationship properties.
+The ```RETURN``` clause retrieves data from the graph database. There can only be one ```RETURN``` clause per Cypher statement, 
+except for statements involving ```UNION``` and subqueries. We rely on curly brackets to denote node and relationship *properties*.
 
-
-In the following example, our queries insert data into the ```User```, 
-```City```, ```FriendshipCity``` and ```LivesIn``` tables. At the end of the statement, we use the ```RETURN``` to inspect everything we've loaded into the graph database.
+Let's take up where we left off earlier. After creating the node and relationshipo tables, we continue with statements that insert data 
+into the ```User```, ```City```, ```FriendshipCity``` and ```LivesIn``` tables. 
 
 ```cypher, linenos
 CREATE (u1: User {name: 'Carly', age: 31}), (u2: User {name: 'Keinichi', age: 47})
@@ -43,8 +45,8 @@ CREATE (u1)-[l01: LivesIn]->(c1)
 CREATE (u2)-[l02: LivesIn]->(c2)
 RETURN *;    
 ```
-
-The section below shows  query output as it appears on the command line. 
+At the end of the statement, we use the ```RETURN``` to inspect everything we've loaded into the graph database.
+The section below shows the Kuzu output as it appears on the command line. 
 
 ```KuzuDB, linenos
 (label:User, 0:0, {name:Carly,age:31})
@@ -54,23 +56,32 @@ The section below shows  query output as it appears on the command line.
 (label:City, 1:1, {name:Sendai,population:2341000})
 (1:0)-[label:FriendshipCity, {since:1997-08-01}]->(1:1)
 (0:0)-[label:LivesIn, {since:}]->(1:0)
-(0:1)-[label:LivesIn, {since:}]->(1:1)
+(0:1)-[label:LivesIn, {since:}]->(1:1)*
 ```
-Note how Kuzu uses tuples to tag node, with tuple values representing table IDs and rows.
-For example with the ```User``` table tagged as ```0```, and the first and second
+Note how the graph database uses *tuples* to tag a node, with each tuple representing table and row identifier
+that, together, maps to a specific node. For example with the ```User``` table tagged as ```0```, and the first and second
 rows tagged as ```0``` and ```1``` respectively, the tuple ```0:1``` maps to 
-the second record in the User table, the entry for the node ```{name:Keinichi,age:47}```
+the second record in the ```User``` table, the database record for the node ```{name:Keinichi,age:47}```
 (line 2).
 
-These tuples are used in the same way for relationship data.
-```(1:0)-[label:FriendshipCity, {since:1997-08-01}]->(1:1)``` matches a ```FriendshipCity```
-relationship between Dallas and Sendai, nodes ```1:0``` and ```1:1``` respectively.
+These tuples are used in the same way for handling relationship data. For ```(1:0)-[label:FriendshipCity, {since:1997-08-01}]->(1:1)``` 
+that matches a ```FriendshipCity``` relationship between Dallas and Sendai, nodes ```1:0``` and ```1:1``` respectively 
+refer to first and second graph nodes stored in the ```City``` table.
 
 ## REFERENCE VARIABLES and LABELS
 
-You may have noticed that we use reference variables are placeholders for Cypher nodes. For example, ```u1``` and ```c2``` in ```u1: User``` and ```c2: City```. While we've used reference variable superficially in our examples here, you'll see more when we write our queries with the ```MATCH``` clause.
+You may have noticed that we use reference variables as placeholders for Cypher nodes. For example, in these insert clauses
+```u1``` and ```c2``` are labels for data in the ```User``` and ``` City``` tables. 
 
-Note that because a ```CREATE``` statement doesn't perform any database lookup before inserting
-new data, reference variables are only visible within the same Cypher query. In short,
-reference variables are not visible between queries.
+```cypher, linenos
+CREATE (u1: User {name: 'Carly', age: 31}), (u2: User {name: 'Keinichi', age: 47})
+...
+CREATE (c1: City {name: 'Dallas', population: 1302638})
+```
 
+While we've used reference variables superficially thus far, you'll see more of them once we write Cypher statements 
+that use the ```MATCH``` clause.
+
+One final note before we close. A ```CREATE``` statement doesn't perform any database lookup prior to inserting any 
+new data. Effectively, reference variables are only visible within the same Cypher statements, not across them.
+<hr/>
