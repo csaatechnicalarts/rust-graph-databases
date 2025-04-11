@@ -4,8 +4,62 @@
     <link rel="self" type="application/atom+xml" href="https://csaatechnicalarts.github.io/rust-graph-databases/atom.xml"/>
     <link rel="alternate" type="text/html" href="https://csaatechnicalarts.github.io/rust-graph-databases/"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
-    <updated>2025-03-26T00:00:00+00:00</updated>
+    <updated>2025-03-29T00:00:00+00:00</updated>
     <id>https://csaatechnicalarts.github.io/rust-graph-databases/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Cypher MATCH and WHERE</title>
+        <published>2025-03-29T00:00:00+00:00</published>
+        <updated>2025-03-29T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://csaatechnicalarts.github.io/rust-graph-databases/posts/cypher-match-where/"/>
+        <id>https://csaatechnicalarts.github.io/rust-graph-databases/posts/cypher-match-where/</id>
+        
+        <content type="html" xml:base="https://csaatechnicalarts.github.io/rust-graph-databases/posts/cypher-match-where/">&lt;h2 id=&quot;match&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#match&quot; aria-label=&quot;Anchor link for: match&quot;&gt;MATCH&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;In the &lt;a href=&quot;..&#x2F;..&#x2F;posts&#x2F;cypher-create-return&quot;&gt;preceeding post&lt;&#x2F;a&gt; we provisioned a graph network and populated it with nodes and relationships. There we saw how the
+Kuzu Explorer displays the graph as interconnected nodes. Alternately the browser can also presents the data in tabular form as we have here.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;csaatechnicalarts.github.io&#x2F;rust-graph-databases&#x2F;posts&#x2F;cypher-match-where&#x2F;2025_03_29-kuzugraph_city_user_table-800px.jpg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;When we want to query for patterns in the database, we turn to Cypher&#x27;s &lt;code&gt;MATCH&lt;&#x2F;code&gt; clause. Because Cypher is a &lt;em&gt;declarative
+language&lt;&#x2F;em&gt;, we only need to supply the pattern and leave it up to the query engine to retrive the matching data.&lt;&#x2F;p&gt;
+&lt;pre data-linenos data-lang=&quot;cypher&quot; style=&quot;background-color:#383838;color:#e6e1dc;&quot; class=&quot;language-cypher &quot;&gt;&lt;code class=&quot;language-cypher&quot; data-lang=&quot;cypher&quot;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;MATCH (u: User {name: &amp;#39;Carly&amp;#39;})
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;2&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;RETURN u
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;When we run this query at the command line, Kuzu returns the matching record.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;kuzu&quot; style=&quot;background-color:#383838;color:#e6e1dc;&quot; class=&quot;language-kuzu &quot;&gt;&lt;code class=&quot;language-kuzu&quot; data-lang=&quot;kuzu&quot;&gt;&lt;span&gt;{_ID: 0:0, _LABEL: User, name: Carly, age: 31}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;where-and-the-as-operator&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#where-and-the-as-operator&quot; aria-label=&quot;Anchor link for: where-and-the-as-operator&quot;&gt;WHERE and the AS Operator&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;In the preceeding post we also introduced &lt;em&gt;variable labels&lt;&#x2F;em&gt; for graph nodes. These come in handy for pattern matching in Cypher
+when we&#x27;re using Cypher&#x27;s &lt;code&gt;WHERE&lt;&#x2F;code&gt; clause. Combined with &lt;code&gt;MATCH&lt;&#x2F;code&gt;, the &lt;code&gt;WHERE&lt;&#x2F;code&gt; clause accepts node lables and properties
+as parameters for our query patterns, applying &lt;em&gt;pattern filters&lt;&#x2F;em&gt; that we supply.&lt;&#x2F;p&gt;
+&lt;pre data-linenos data-lang=&quot;cypher&quot; style=&quot;background-color:#383838;color:#e6e1dc;&quot; class=&quot;language-cypher &quot;&gt;&lt;code class=&quot;language-cypher&quot; data-lang=&quot;cypher&quot;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;MATCH (u: User)
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;2&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;WHERE u.name = &amp;#39;Keinichi&amp;#39;
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;3&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;RETURN u
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre data-lang=&quot;kuzu&quot; style=&quot;background-color:#383838;color:#e6e1dc;&quot; class=&quot;language-kuzu &quot;&gt;&lt;code class=&quot;language-kuzu&quot; data-lang=&quot;kuzu&quot;&gt;&lt;span&gt;{_ID: 0:1, _LABEL: User, name: Keinichi, age: 47
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Cypher&#x27;s pattern filters come with a number of logical operators. In the example below, we apply &lt;code&gt;OR&lt;&#x2F;code&gt; to expand
+the scope of the filtered match.&lt;&#x2F;p&gt;
+&lt;pre data-linenos data-lang=&quot;cypher&quot; style=&quot;background-color:#383838;color:#e6e1dc;&quot; class=&quot;language-cypher &quot;&gt;&lt;code class=&quot;language-cypher&quot; data-lang=&quot;cypher&quot;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;MATCH (u: User)
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;2&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;WHERE u.name = &amp;#39;Keinichi&amp;#39; OR u.name = &amp;#39;Carly&amp;#39;
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;3&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;RETURN u.name AS PERSON
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre data-lang=&quot;kuzu&quot; style=&quot;background-color:#383838;color:#e6e1dc;&quot; class=&quot;language-kuzu &quot;&gt;&lt;code class=&quot;language-kuzu&quot; data-lang=&quot;kuzu&quot;&gt;&lt;span&gt;PERSON
+&lt;&#x2F;span&gt;&lt;span&gt;Carly
+&lt;&#x2F;span&gt;&lt;span&gt;Keinichi
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Note that we also used another Cypher operator in that last query: &lt;code&gt;AS&lt;&#x2F;code&gt;.  The &lt;code&gt;AS&lt;&#x2F;code&gt; operator lets us introduce an alias for
+a variable reference to make the query result more readable.&lt;&#x2F;p&gt;
+&lt;hr&#x2F;&gt;
+</content>
+        
+    </entry>
     <entry xml:lang="en">
         <title>Cypher CREATE and RETURN</title>
         <published>2025-03-26T00:00:00+00:00</published>
