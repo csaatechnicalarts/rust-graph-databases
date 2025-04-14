@@ -1,33 +1,4 @@
-// [1] Run with default database:
 //      $> clear; rm -rf /tmp/kuzu_db/; cargo run
-//
-// [2] CREATE
-//      The CREATE clause is used to store nodes and relationships
-//      in a graph database. The CREATE clause does not check for
-//      existing data in the graph database; it blindly follows
-//      the command to create a new pattern in the database. 
-//      We use brackets to enclose node properties.
-//  
-//      Neo4j graph databases only store directed relationships.
-//      Queries that try to store undirected relationships fail.
-//
-//      In the examples below, we create two nodes and then create
-//      the relationship between them, all in one query. It's recommended
-//      to split the creation of nodes from the creation of relationships
-//      into separate query statements.
-//
-// [3] RETURN
-//      To retrieve the created graph elements and visualize them
-//      in the Neo4j Browser, use the RETURN clause. There can only
-//      be one return clause in a Cypher query, except for unions
-//      and subqueries.
-//
-// [4] REFERENCE VARIABLES/LABELS
-//      In the query statements below, reference variables come before
-//      node types. ("u1: User" or "c2: City") Because a CREATE statement
-//      doesn't perform any database lookup before inserting new data,
-//      reference variables are only visible within the same Cypher query.
-//      In short, reference labels are not visible between queries.
 
 use kuzu::{Database, SystemConfig, Connection};
 
