@@ -3,7 +3,13 @@ name = "rust-graph-algorithms"
 version = "0.1.0"
 edition = "2024"
 
-[workspace]
-members = ["learn-cypher"]
+[[bin]]
+name = "kuzu_create_return"
+path = "learn_cypher/src/bin/kuzu_create_return.rs"
+
+[[bin]]
+name = "kuzu_match"
+path = "learn_cypher/src/bin/kuzu_match.rs"
 
 [dependencies]
+kuzu = "0.9.0"

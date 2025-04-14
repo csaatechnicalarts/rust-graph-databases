@@ -1,0 +1,67 @@
+// [1] Run with default database:
+//      $> clear; rm -rf /tmp/kuzu_db/; cargo run
+//
+// [2] CREATE
+//      The CREATE clause is used to store nodes and relationships
+//      in a graph database. The CREATE clause does not check for
+//      existing data in the graph database; it blindly follows
+//      the command to create a new pattern in the database. 
+//      We use brackets to enclose node properties.
+//  
+//      Neo4j graph databases only store directed relationships.
+//      Queries that try to store undirected relationships fail.
+//
+//      In the examples below, we create two nodes and then create
+//      the relationship between them, all in one query. It's recommended
+//      to split the creation of nodes from the creation of relationships
+//      into separate query statements.
+//
+// [3] RETURN
+//      To retrieve the created graph elements and visualize them
+//      in the Neo4j Browser, use the RETURN clause. There can only
+//      be one return clause in a Cypher query, except for unions
+//      and subqueries.
+//
+// [4] REFERENCE VARIABLES/LABELS
+//      In the query statements below, reference variables come before
+//      node types. ("u1: User" or "c2: City") Because a CREATE statement
+//      doesn't perform any database lookup before inserting new data,
+//      reference variables are only visible within the same Cypher query.
+//      In short, reference labels are not visible between queries.
+
+use kuzu::{Database, SystemConfig, Connection};
+
+const DEFAULT_DB: &str = "/tmp/kuzu_db";
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let db = Database::new(DEFAULT_DB, SystemConfig::default())?;
+    let conn = Connection::new(&db)?;
+
+    let _ = conn.query("
+        CREATE NODE TABLE User (name STRING, age INT64, PRIMARY KEY(name));
+        CREATE NODE TABLE City (name STRING, population INT64, PRIMARY KEY(name));
+        CREATE REL TABLE Follows (FROM User TO User, since DATE);
+        CREATE REL TABLE LivesIn (FROM User TO City, since DATE);
+        CREATE REL TABLE FriendshipCity (FROM City TO City, since DATE);
+    ")?;
+
+    let result = conn.query("
+        CREATE (u1: User {name: 'Carly', age: 31}), (u2: User {name: 'Keinichi', age: 47})
+        CREATE (u1)-[f: Follows {since: DATE('2025-03-25')}]->(u2)
+        CREATE (c1: City {name: 'Dallas', population: 1302638})
+        CREATE (c2: City {name: 'Sendai', population: 2341000})
+        CREATE (c1)-[fc01: FriendshipCity {since: DATE('1997-08-01')}]->(c2)
+        CREATE (u1)-[l01: LivesIn]->(c1)
+        CREATE (u2)-[l02: LivesIn]->(c2)
+        RETURN *;    
+    ")?;
+
+    // kuzu::result is a vector; kuzu::value is a enum wrapper for Rust types.
+    for item in result {
+        for value in item {
+            println!("{}", value);
+        }
+    }
+
+    Ok(())
+}
