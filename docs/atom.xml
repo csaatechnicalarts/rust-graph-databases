@@ -56,6 +56,8 @@ the scope of the filtered match.&lt;&#x2F;p&gt;
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
 &lt;p&gt;Note that we also used another Cypher operator in that last query: &lt;code&gt;AS&lt;&#x2F;code&gt;.  The &lt;code&gt;AS&lt;&#x2F;code&gt; operator lets us introduce an alias for
 a variable reference to make the query result more readable.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;source-code&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#source-code&quot; aria-label=&quot;Anchor link for: source-code&quot;&gt;Source Code&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;csaatechnicalarts&#x2F;rust-graph-databases&#x2F;blob&#x2F;main&#x2F;learn_cypher&#x2F;src&#x2F;bin&#x2F;kuzu_match.rs&quot;&gt;kuzu_match.rs&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;hr&#x2F;&gt;
 </content>
         
@@ -134,6 +136,8 @@ refer to first and second graph nodes stored in the &lt;code&gt;City&lt;&#x2F;co
 that use the &lt;code&gt;MATCH&lt;&#x2F;code&gt; clause.&lt;&#x2F;p&gt;
 &lt;p&gt;One final note before we close. A &lt;code&gt;CREATE&lt;&#x2F;code&gt; statement doesn&#x27;t perform any database lookup prior to inserting any
 new data. Effectively, reference variables are only visible within the same Cypher statements, not across them.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;source-code&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#source-code&quot; aria-label=&quot;Anchor link for: source-code&quot;&gt;Source Code&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;csaatechnicalarts&#x2F;rust-graph-databases&#x2F;blob&#x2F;main&#x2F;learn_cypher&#x2F;src&#x2F;bin&#x2F;kuzu_create_return.rs&quot;&gt;kuzu_create_return.rs&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;hr&#x2F;&gt;
 </content>
         
