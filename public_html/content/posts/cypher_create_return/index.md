@@ -89,4 +89,8 @@ that use the ```MATCH``` clause.
 
 One final note before we close. A ```CREATE``` statement doesn't perform any database lookup prior to inserting any 
 new data. Effectively, reference variables are only visible within the same Cypher statements, not across them.
+
+### Source Code
+
+[kuzu_create_return.rs](https://github.com/csaatechnicalarts/rust-graph-databases/blob/main/learn_cypher/src/bin/kuzu_create_return.rs)
 <hr/>

@@ -60,4 +60,8 @@ Keinichi
 ```
 Note that we also used another Cypher operator in that last query: ```AS```.  The ```AS``` operator lets us introduce an alias for 
 a variable reference to make the query result more readable.
+
+### Source Code
+
+[kuzu_match.rs](https://github.com/csaatechnicalarts/rust-graph-databases/blob/main/learn_cypher/src/bin/kuzu_match.rs)
 <hr/>
