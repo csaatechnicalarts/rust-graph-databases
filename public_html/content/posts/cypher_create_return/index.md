@@ -51,7 +51,7 @@ The [Kuzu Explorer](https://github.com/kuzudb/explorer) maps our graph network, 
 ![](2025_0326-kuzugraph_city_user-800px.jpg)
 
 At the end of the statement, we have the ```RETURN``` clause present everything we've loaded into the graph database.
-The section below shows the Kuzu output as it appears on the command line. 
+The section below shows the Kuzu output as it appears on the command line.
 
 ```KuzuDB, linenos
 (label:User, 0:0, {name:Carly,age:31})
@@ -75,7 +75,9 @@ refer to first and second graph nodes stored in the ```City``` table.
 
 ## REFERENCE VARIABLES and LABELS
 
-You may have noticed that we use reference variables as placeholders for Cypher nodes. For example, in these insert clauses
+In the Kuzu output above, the node type is indicated by a *label*. The same holds true for a relationship. You may also 
+have noticed that we use reference variables for labels as placeholders for Cypher nodes. For example, in these insert clauses
+
 ```u1``` and ```c2``` are labels for data in the ```User``` and ``` City``` tables. 
 
 ```cypher, linenos

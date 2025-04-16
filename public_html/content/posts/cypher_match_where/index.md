@@ -63,5 +63,11 @@ a variable reference to make the query result more readable.
 
 ### Source Code
 
+The code cited in this post comes from `kuzu_match.rs`. To run that however, you'll need to execute `kuzu_create_return.rs` first
+in order to provision a graph database and populate it with with data. `kuzu_create_return.rs` need only be executed once. 
+Both Rust programs work with the graph database created in `/tmp/kuzu_db`.
+
+[kuzu_create_return.rs](https://github.com/csaatechnicalarts/rust-graph-databases/blob/main/learn_cypher/src/bin/kuzu_create_return.rs)
+
 [kuzu_match.rs](https://github.com/csaatechnicalarts/rust-graph-databases/blob/main/learn_cypher/src/bin/kuzu_match.rs)
 <hr/>
