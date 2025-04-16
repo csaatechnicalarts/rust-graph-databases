@@ -1,0 +1,19 @@
+[1.0] Getting started with Neo4j Docker image
+    Reference - https://neo4j.com/docs/operations-manual/current/docker/introduction/
+
+    $> docker pull neo4j
+
+    $> docker run --publish=7474:7474 --publish=7687:7687 neo4j:latest
+
+[2.0] Getting started with Kuzu Browser Docker image
+
+    $> docker pull kuzudb/explorer
+
+    [2.1] Start Kuzu Browser and load an existing database
+
+    $> docker run -p 8000:8000 -v ./social_network_rs_db:/database  --rm kuzudb/explorer:latest 
+
+    [2.2] Run an in-memory graph database
+
+    $> docker run -p 8000:8000 -e KUZU_IN_MEMORY=true --rm kuzudb/explorer:latest 
+
