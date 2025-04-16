@@ -31,5 +31,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let result = conn.query(q_statement)?;
     println!("{}", result.to_string());
 
+    let q_statement = "MATCH (u: User)-[LivesIn]->(c: City) 
+        WHERE u.name = 'Keinichi' 
+        RETURN u.name AS USER, c.name AS CITY";
+    let result = conn.query(q_statement)?;
+    println!("{}", result.to_string());
+
     Ok(())
 }

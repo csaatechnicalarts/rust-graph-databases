@@ -53,13 +53,32 @@ MATCH (u: User)
 WHERE u.name = 'Keinichi' OR u.name = 'Carly'
 RETURN u.name AS PERSON
 ```
-```kuzu
+```kuzu, linenos
 PERSON
 Carly
 Keinichi
 ```
 Note that we also used another Cypher operator in that last query: ```AS```.  The ```AS``` operator lets us introduce an alias for 
 a variable reference to make the query result more readable.
+
+In our final example, we run a query with a pattern traversing the `LivesIn` relationship to link a user and a city.
+We present two versions of the query, showing how flexible Cypher can be with relationship in the `MATCH` clause.
+
+```cypher, linenos
+MATCH (u: User)-[LivesIn]->(c: City)
+WHERE u.name = 'Keinichi'
+RETURN u.name AS USER, c.name AS CITY
+```
+```cypher, linenos
+MATCH (c: City)<-[LivesIn]-(u: User)
+WHERE u.name = 'Keinichi'
+RETURN u.name AS USER, c.name AS CITY
+```
+
+```kuzu
+USER|CITY
+Kenichi|Sendai
+```
 
 ### Source Code
 
