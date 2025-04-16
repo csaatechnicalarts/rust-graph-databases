@@ -57,6 +57,10 @@ the scope of the filtered match.&lt;&#x2F;p&gt;
 &lt;p&gt;Note that we also used another Cypher operator in that last query: &lt;code&gt;AS&lt;&#x2F;code&gt;.  The &lt;code&gt;AS&lt;&#x2F;code&gt; operator lets us introduce an alias for
 a variable reference to make the query result more readable.&lt;&#x2F;p&gt;
 &lt;h3 id=&quot;source-code&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#source-code&quot; aria-label=&quot;Anchor link for: source-code&quot;&gt;Source Code&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;The code cited in this post comes from &lt;code&gt;kuzu_match.rs&lt;&#x2F;code&gt;. To run that however, you&#x27;ll need to execute &lt;code&gt;kuzu_create_return.rs&lt;&#x2F;code&gt; first
+in order to provision a graph database and populate it with with data. &lt;code&gt;kuzu_create_return.rs&lt;&#x2F;code&gt; need only be executed once.
+Both Rust programs work with the graph database created in &lt;code&gt;&#x2F;tmp&#x2F;kuzu_db&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;csaatechnicalarts&#x2F;rust-graph-databases&#x2F;blob&#x2F;main&#x2F;learn_cypher&#x2F;src&#x2F;bin&#x2F;kuzu_create_return.rs&quot;&gt;kuzu_create_return.rs&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;csaatechnicalarts&#x2F;rust-graph-databases&#x2F;blob&#x2F;main&#x2F;learn_cypher&#x2F;src&#x2F;bin&#x2F;kuzu_match.rs&quot;&gt;kuzu_match.rs&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;hr&#x2F;&gt;
 </content>
@@ -126,8 +130,9 @@ the second record in the &lt;code&gt;User&lt;&#x2F;code&gt; table, the database 
 that matches a &lt;code&gt;FriendshipCity&lt;&#x2F;code&gt; relationship between Dallas and Sendai, nodes &lt;code&gt;1:0&lt;&#x2F;code&gt; and &lt;code&gt;1:1&lt;&#x2F;code&gt; respectively
 refer to first and second graph nodes stored in the &lt;code&gt;City&lt;&#x2F;code&gt; table.&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;reference-variables-and-labels&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#reference-variables-and-labels&quot; aria-label=&quot;Anchor link for: reference-variables-and-labels&quot;&gt;REFERENCE VARIABLES and LABELS&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
-&lt;p&gt;You may have noticed that we use reference variables as placeholders for Cypher nodes. For example, in these insert clauses
-&lt;code&gt;u1&lt;&#x2F;code&gt; and &lt;code&gt;c2&lt;&#x2F;code&gt; are labels for data in the &lt;code&gt;User&lt;&#x2F;code&gt; and &lt;code&gt; City&lt;&#x2F;code&gt; tables.&lt;&#x2F;p&gt;
+&lt;p&gt;In the Kuzu output above, the node type is indicated by a &lt;em&gt;label&lt;&#x2F;em&gt;. The same holds true for a relationship. You may also
+have noticed that we use reference variables for labels as placeholders for Cypher nodes. For example, in these insert clauses&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;u1&lt;&#x2F;code&gt; and &lt;code&gt;c2&lt;&#x2F;code&gt; are labels for data in the &lt;code&gt;User&lt;&#x2F;code&gt; and &lt;code&gt; City&lt;&#x2F;code&gt; tables.&lt;&#x2F;p&gt;
 &lt;pre data-linenos data-lang=&quot;cypher&quot; style=&quot;background-color:#383838;color:#e6e1dc;&quot; class=&quot;language-cypher &quot;&gt;&lt;code class=&quot;language-cypher&quot; data-lang=&quot;cypher&quot;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;CREATE (u1: User {name: &amp;#39;Carly&amp;#39;, age: 31}), (u2: User {name: &amp;#39;Keinichi&amp;#39;, age: 47})
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;2&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;...
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;3&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;CREATE (c1: City {name: &amp;#39;Dallas&amp;#39;, population: 1302638})
