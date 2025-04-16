@@ -50,12 +50,25 @@ the scope of the filtered match.&lt;&#x2F;p&gt;
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;2&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;WHERE u.name = &amp;#39;Keinichi&amp;#39; OR u.name = &amp;#39;Carly&amp;#39;
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;3&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;RETURN u.name AS PERSON
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
-&lt;pre data-lang=&quot;kuzu&quot; style=&quot;background-color:#383838;color:#e6e1dc;&quot; class=&quot;language-kuzu &quot;&gt;&lt;code class=&quot;language-kuzu&quot; data-lang=&quot;kuzu&quot;&gt;&lt;span&gt;PERSON
-&lt;&#x2F;span&gt;&lt;span&gt;Carly
-&lt;&#x2F;span&gt;&lt;span&gt;Keinichi
-&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre data-linenos data-lang=&quot;kuzu&quot; style=&quot;background-color:#383838;color:#e6e1dc;&quot; class=&quot;language-kuzu &quot;&gt;&lt;code class=&quot;language-kuzu&quot; data-lang=&quot;kuzu&quot;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;PERSON
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;2&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;Carly
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;3&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;Keinichi
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
 &lt;p&gt;Note that we also used another Cypher operator in that last query: &lt;code&gt;AS&lt;&#x2F;code&gt;.  The &lt;code&gt;AS&lt;&#x2F;code&gt; operator lets us introduce an alias for
 a variable reference to make the query result more readable.&lt;&#x2F;p&gt;
+&lt;p&gt;In our final example, we run a query with a pattern traversing the &lt;code&gt;LivesIn&lt;&#x2F;code&gt; relationship to link a user and a city.
+We present two versions of the query, showing how flexible Cypher can be with relationship in the &lt;code&gt;MATCH&lt;&#x2F;code&gt; clause.&lt;&#x2F;p&gt;
+&lt;pre data-linenos data-lang=&quot;cypher&quot; style=&quot;background-color:#383838;color:#e6e1dc;&quot; class=&quot;language-cypher &quot;&gt;&lt;code class=&quot;language-cypher&quot; data-lang=&quot;cypher&quot;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;MATCH (u: User)-[LivesIn]-&amp;gt;(c: City)
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;2&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;WHERE u.name = &amp;#39;Keinichi&amp;#39;
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;3&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;RETURN u.name AS USER, c.name AS CITY
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre data-linenos data-lang=&quot;cypher&quot; style=&quot;background-color:#383838;color:#e6e1dc;&quot; class=&quot;language-cypher &quot;&gt;&lt;code class=&quot;language-cypher&quot; data-lang=&quot;cypher&quot;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;MATCH (c: City)&amp;lt;-[LivesIn]-(u: User)
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;2&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;WHERE u.name = &amp;#39;Keinichi&amp;#39;
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;3&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;RETURN u.name AS USER, c.name AS CITY
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre data-lang=&quot;kuzu&quot; style=&quot;background-color:#383838;color:#e6e1dc;&quot; class=&quot;language-kuzu &quot;&gt;&lt;code class=&quot;language-kuzu&quot; data-lang=&quot;kuzu&quot;&gt;&lt;span&gt;USER|CITY
+&lt;&#x2F;span&gt;&lt;span&gt;Kenichi|Sendai
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
 &lt;h3 id=&quot;source-code&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#source-code&quot; aria-label=&quot;Anchor link for: source-code&quot;&gt;Source Code&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
 &lt;p&gt;The code cited in this post comes from &lt;code&gt;kuzu_match.rs&lt;&#x2F;code&gt;. To run that however, you&#x27;ll need to execute &lt;code&gt;kuzu_create_return.rs&lt;&#x2F;code&gt; first
 in order to provision a graph database and populate it with with data. &lt;code&gt;kuzu_create_return.rs&lt;&#x2F;code&gt; need only be executed once.
