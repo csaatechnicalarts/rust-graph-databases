@@ -61,8 +61,11 @@ Keinichi
 Note that we also used another Cypher operator in that last query: ```AS```.  The ```AS``` operator lets us introduce an alias for 
 a variable reference to make the query result more readable.
 
-In our final example, we run a query with a pattern traversing the `LivesIn` relationship to link a user and a city.
-We present two versions of the query, showing how flexible Cypher can be with relationship in the `MATCH` clause.
+In our final examples we run queries against a graph network loaded with a few more informationi. Our goal here is 
+to use patterns that traverse the `LivesIn` and/or the `Follows` relationship(s) 
+to link a user and a city.  
+
+![](2025_0416-kuzugraph_user_city-800px.jpg)
 
 ```cypher, linenos
 MATCH (u: User)-[LivesIn]->(c: City)
@@ -78,6 +81,21 @@ RETURN u.name AS USER, c.name AS CITY
 ```kuzu
 USER|CITY
 Kenichi|Sendai
+```
+In the first query above, we present two versions of the query, showing how flexible Cypher can be 
+with relationship in the `MATCH` clause. The second query shows how we can chain nodes and relationships
+to retrieve useful information from the graph.
+
+```cypher, linenos
+MATCH (u1: User)-[: Follows]->(u2: User)-[: LivesIn]->(c1: City)
+WHERE u1.name = 'Keinichi'
+RETURN u2.name AS PERSON, c1.name AS CITY, c1.population AS CITY_POPULATION
+```
+
+```kuzu
+PERSON|CITY|CITY_POPULATION
+Akila|Cairo|4493410
+Klaus|Stuttgart|632865
 ```
 
 ### Source Code
