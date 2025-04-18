@@ -4,8 +4,66 @@
     <link rel="self" type="application/atom+xml" href="https://csaatechnicalarts.github.io/rust-graph-databases/atom.xml"/>
     <link rel="alternate" type="text/html" href="https://csaatechnicalarts.github.io/rust-graph-databases/"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
-    <updated>2025-03-29T00:00:00+00:00</updated>
+    <updated>2025-04-02T00:00:00+00:00</updated>
     <id>https://csaatechnicalarts.github.io/rust-graph-databases/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Cypher MERGE to Update the Graph Network</title>
+        <published>2025-04-02T00:00:00+00:00</published>
+        <updated>2025-04-02T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://csaatechnicalarts.github.io/rust-graph-databases/posts/cypher-merge/"/>
+        <id>https://csaatechnicalarts.github.io/rust-graph-databases/posts/cypher-merge/</id>
+        
+        <content type="html" xml:base="https://csaatechnicalarts.github.io/rust-graph-databases/posts/cypher-merge/">&lt;h2 id=&quot;graph-networks-are-mutable&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#graph-networks-are-mutable&quot; aria-label=&quot;Anchor link for: graph-networks-are-mutable&quot;&gt;Graph Networks are Mutable&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;csaatechnicalarts.github.io&#x2F;rust-graph-databases&#x2F;posts&#x2F;cypher-merge&#x2F;2025_0416-kuzugraph_user_city-800px.jpg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;With the graph network we put together in &lt;a href=&quot;..&#x2F;..&#x2F;posts&#x2F;cypher-create-return&quot;&gt;earlier posts&lt;&#x2F;a&gt;, we have users that follow one another in a unidirectional way. Let&#x27;s say we want
+to update the database such that not only does Carly follow Akila, but Akila too in reverse. Similarly we see that
+Akila and Klaus do not follow one another; let&#x27;s say we also want them to share a &lt;code&gt;Follows&lt;&#x2F;code&gt; relationship -- say Klaus
+follows Akila. We accomplish this in Cypher using the &lt;code&gt;MERGE&lt;&#x2F;code&gt; clause.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;match-and-then-merge&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#match-and-then-merge&quot; aria-label=&quot;Anchor link for: match-and-then-merge&quot;&gt;MATCH and then MERGE&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;In the Cypher language &lt;code&gt;MERGE&lt;&#x2F;code&gt; is the way by which we apply updates to the graph database. To use this clause, we must
+first supply it with patterns that are anchored by Cypher reference variables. We do so by means of the &lt;code&gt;MATCH&lt;&#x2F;code&gt; clause.
+For example, here&#x27;s how we create a relationship between two existing nodes:&lt;&#x2F;p&gt;
+&lt;pre data-linenos data-lang=&quot;cypher&quot; style=&quot;background-color:#383838;color:#e6e1dc;&quot; class=&quot;language-cypher &quot;&gt;&lt;code class=&quot;language-cypher&quot; data-lang=&quot;cypher&quot;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;MATCH (u1: User {name: &amp;#39;Klaus&amp;#39;})
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;2&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;MATCH (u2: User {name: &amp;#39;Akila&amp;#39;})
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;3&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;MERGE (u1)-[:Follows {since: DATE(&amp;#39;2024-01-25&amp;#39;)}]-&amp;gt;(u2)
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;4&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;MERGE (u2)-[:Follows {since: DATE(&amp;#39;2024-01-25&amp;#39;)}]-&amp;gt;(u1)
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;5&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;RETURN u1, u2
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Here our pattern matches the reference variables &lt;code&gt;u1&lt;&#x2F;code&gt; and &lt;code&gt;u2&lt;&#x2F;code&gt; with the nodes for Klaus and Akila. With this in hand
+we then create a pair of &lt;code&gt;Follows&lt;&#x2F;code&gt; relationships and store the new information to the graph database.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;csaatechnicalarts.github.io&#x2F;rust-graph-databases&#x2F;posts&#x2F;cypher-merge&#x2F;2025_0417-kuzugraph_user_user-800px.jpg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Knowing all this, it becomes trivial to insert a new &lt;code&gt;User&lt;&#x2F;code&gt; node into the graph network and create new &lt;code&gt;Follows&lt;&#x2F;code&gt;
+relationships for it.&lt;&#x2F;p&gt;
+&lt;pre data-linenos data-lang=&quot;cypher&quot; style=&quot;background-color:#383838;color:#e6e1dc;&quot; class=&quot;language-cypher &quot;&gt;&lt;code class=&quot;language-cypher&quot; data-lang=&quot;cypher&quot;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;MATCH (c: City {name: &amp;#39;Dallas&amp;#39;})
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;2&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;MATCH (u1: User {name: &amp;#39;Carly&amp;#39;})
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;3&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;MERGE (u2: User {name: &amp;#39;Tom&amp;#39;, age: 22})
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;4&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;MERGE (u2)-[: LivesIn]-&amp;gt;(c)
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;5&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;MERGE (u2)-[: Follows]-&amp;gt;(u1)
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;6&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;MERGE (u1)-[: Follows]-&amp;gt;(u2)
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;tr&gt;&lt;td&gt;7&lt;&#x2F;td&gt;&lt;td&gt;&lt;span&gt;RETURN u1, u2, c 
+&lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;csaatechnicalarts.github.io&#x2F;rust-graph-databases&#x2F;posts&#x2F;cypher-merge&#x2F;2025_0418-kuzugraph_user_city-800px.jpg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Note that Cypher requires all &lt;code&gt;MATCH&lt;&#x2F;code&gt; patterns to come before &lt;code&gt;MERGE&lt;&#x2F;code&gt; clauses; changing the order leads to an error.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;source-code&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#source-code&quot; aria-label=&quot;Anchor link for: source-code&quot;&gt;Source Code&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;The code cited in this post comes from &lt;code&gt;kuzu_merge.rs&lt;&#x2F;code&gt;. To run that however, you&#x27;ll need to execute
+&lt;code&gt;kuzu_create_return.rs&lt;&#x2F;code&gt; first in order to provision a graph database and populate it with with data.
+&lt;code&gt;kuzu_create_return.rs&lt;&#x2F;code&gt; need only be executed once. Both Rust programs work with the graph database
+created in &lt;code&gt;&#x2F;tmp&#x2F;kuzu_db&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;csaatechnicalarts&#x2F;rust-graph-databases&#x2F;blob&#x2F;main&#x2F;learn_cypher&#x2F;src&#x2F;bin&#x2F;kuzu_create_return.rs&quot;&gt;kuzu_create_return.rs&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;csaatechnicalarts&#x2F;rust-graph-databases&#x2F;blob&#x2F;main&#x2F;learn_cypher&#x2F;src&#x2F;bin&#x2F;kuzu_merge.rs&quot;&gt;kuzu_merge.rs&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;hr&#x2F;&gt;
+</content>
+        
+    </entry>
     <entry xml:lang="en">
         <title>Cypher MATCH and WHERE</title>
         <published>2025-03-29T00:00:00+00:00</published>
