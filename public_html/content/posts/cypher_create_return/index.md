@@ -1,5 +1,5 @@
 +++
-title = "Cypher CREATE and RETURN"
+title = "Cypher CREATE and RETURN to Provision the Graph Network"
 date = "2025-03-26"
 draft = false
 

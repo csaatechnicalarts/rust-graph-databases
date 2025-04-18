@@ -1,5 +1,5 @@
 +++
-title = "Cypher MATCH and WHERE"
+title = "Cypher MATCH and WHERE to Find Data"
 date = "2025-03-29"
 draft = false
 
