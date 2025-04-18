@@ -53,7 +53,7 @@ relationships for it.&lt;&#x2F;p&gt;
 &lt;&#x2F;span&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
 &lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;csaatechnicalarts.github.io&#x2F;rust-graph-databases&#x2F;posts&#x2F;cypher-merge&#x2F;2025_0418-kuzugraph_user_city-800px.jpg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;Note that Cypher requires all &lt;code&gt;MATCH&lt;&#x2F;code&gt; patterns to come before &lt;code&gt;MERGE&lt;&#x2F;code&gt; clauses; changing the order leads to an error.&lt;&#x2F;p&gt;
-&lt;h3 id=&quot;source-code&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#source-code&quot; aria-label=&quot;Anchor link for: source-code&quot;&gt;Source Code&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;h2 id=&quot;source-code&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#source-code&quot; aria-label=&quot;Anchor link for: source-code&quot;&gt;Source Code&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
 &lt;p&gt;The code cited in this post comes from &lt;code&gt;kuzu_merge.rs&lt;&#x2F;code&gt;. To run that however, you&#x27;ll need to execute
 &lt;code&gt;kuzu_create_return.rs&lt;&#x2F;code&gt; first in order to provision a graph database and populate it with with data.
 &lt;code&gt;kuzu_create_return.rs&lt;&#x2F;code&gt; need only be executed once. Both Rust programs work with the graph database
@@ -65,7 +65,7 @@ created in &lt;code&gt;&#x2F;tmp&#x2F;kuzu_db&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
         
     </entry>
     <entry xml:lang="en">
-        <title>Cypher MATCH and WHERE</title>
+        <title>Cypher MATCH and WHERE to Find Data</title>
         <published>2025-03-29T00:00:00+00:00</published>
         <updated>2025-03-29T00:00:00+00:00</updated>
         
@@ -140,7 +140,7 @@ to retrieve useful information from the graph.&lt;&#x2F;p&gt;
 &lt;&#x2F;span&gt;&lt;span&gt;Akila|Cairo|4493410
 &lt;&#x2F;span&gt;&lt;span&gt;Klaus|Stuttgart|632865
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
-&lt;h3 id=&quot;source-code&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#source-code&quot; aria-label=&quot;Anchor link for: source-code&quot;&gt;Source Code&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;h2 id=&quot;source-code&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#source-code&quot; aria-label=&quot;Anchor link for: source-code&quot;&gt;Source Code&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
 &lt;p&gt;The code cited in this post comes from &lt;code&gt;kuzu_match.rs&lt;&#x2F;code&gt;. To run that however, you&#x27;ll need to execute &lt;code&gt;kuzu_create_return.rs&lt;&#x2F;code&gt; first
 in order to provision a graph database and populate it with with data. &lt;code&gt;kuzu_create_return.rs&lt;&#x2F;code&gt; need only be executed once.
 Both Rust programs work with the graph database created in &lt;code&gt;&#x2F;tmp&#x2F;kuzu_db&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
@@ -151,7 +151,7 @@ Both Rust programs work with the graph database created in &lt;code&gt;&#x2F;tmp
         
     </entry>
     <entry xml:lang="en">
-        <title>Cypher CREATE and RETURN</title>
+        <title>Cypher CREATE and RETURN to Provision the Graph Network</title>
         <published>2025-03-26T00:00:00+00:00</published>
         <updated>2025-03-26T00:00:00+00:00</updated>
         
@@ -225,7 +225,7 @@ have noticed that we use reference variables for labels as placeholders for Cyph
 that use the &lt;code&gt;MATCH&lt;&#x2F;code&gt; clause.&lt;&#x2F;p&gt;
 &lt;p&gt;One final note before we close. A &lt;code&gt;CREATE&lt;&#x2F;code&gt; statement doesn&#x27;t perform any database lookup prior to inserting any
 new data. Effectively, reference variables are only visible within the same Cypher statements, not across them.&lt;&#x2F;p&gt;
-&lt;h3 id=&quot;source-code&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#source-code&quot; aria-label=&quot;Anchor link for: source-code&quot;&gt;Source Code&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;h2 id=&quot;source-code&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#source-code&quot; aria-label=&quot;Anchor link for: source-code&quot;&gt;Source Code&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
 &lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;csaatechnicalarts&#x2F;rust-graph-databases&#x2F;blob&#x2F;main&#x2F;learn_cypher&#x2F;src&#x2F;bin&#x2F;kuzu_create_return.rs&quot;&gt;kuzu_create_return.rs&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;hr&#x2F;&gt;
 </content>
