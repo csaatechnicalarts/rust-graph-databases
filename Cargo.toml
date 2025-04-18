@@ -11,5 +11,9 @@ path = "learn_cypher/src/bin/kuzu_create_return.rs"
 name = "kuzu_match"
 path = "learn_cypher/src/bin/kuzu_match.rs"
 
+[[bin]]
+name = "kuzu_merge"
+path = "learn_cypher/src/bin/kuzu_merge.rs"
+
 [dependencies]
 kuzu = "0.9.0"
