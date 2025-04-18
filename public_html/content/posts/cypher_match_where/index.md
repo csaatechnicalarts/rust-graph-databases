@@ -98,7 +98,7 @@ Akila|Cairo|4493410
 Klaus|Stuttgart|632865
 ```
 
-### Source Code
+## Source Code
 
 The code cited in this post comes from `kuzu_match.rs`. To run that however, you'll need to execute `kuzu_create_return.rs` first
 in order to provision a graph database and populate it with with data. `kuzu_create_return.rs` need only be executed once. 

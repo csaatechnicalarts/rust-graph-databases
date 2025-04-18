@@ -52,7 +52,7 @@ RETURN u1, u2, c
 
 Note that Cypher requires all `MATCH` patterns to come before `MERGE` clauses; changing the order leads to an error.
 
-### Source Code
+## Source Code
 
 The code cited in this post comes from `kuzu_merge.rs`. To run that however, you'll need to execute 
 `kuzu_create_return.rs` first in order to provision a graph database and populate it with with data. 
